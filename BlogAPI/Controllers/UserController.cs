@@ -95,5 +95,16 @@ namespace BlogAPI.Controllers
             };
             return result;
         }
+        [HttpDelete]
+        public string Delete(Guid Id)
+        {
+            conn.Connection.Open();
+            DateTime CreatedTime = DateTime.Now;
+            string sql = $"DELETE FROM `user` WHERE `Id` = '{Id}'";
+            MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
+            cmd.ExecuteNonQuery();
+            conn.Connection.Close();
+            return $"{Id} elem törölve.";
+        }
     }
 }
