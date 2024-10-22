@@ -57,5 +57,25 @@ namespace BlogAPI.Controllers
             conn.Connection.Close();
             return result;
         }
+        [HttpPost]
+        public User Post(string title, string description)
+        {
+            conn.Connection.Open();
+            Guid Id = Guid.NewGuid();
+            DateTime CreatedTime = DateTime.Now;
+            string sql = $"INSERT INTO user (Id, Title, Description,CreatedTime,LastUpdated) VALUES ('{Id}','{title}','{description}','{CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")}','{CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")}')";
+            MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
+            cmd.ExecuteNonQuery();
+            conn.Connection.Close();
+            var result = new User
+            {
+                Id = Id,
+                Title = title,
+                Description = description,
+                CreatedTime = DateTime.Now,
+                LastUpdated = DateTime.Now
+            };
+            return result;
+        }
     }
 }
