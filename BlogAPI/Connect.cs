@@ -13,7 +13,7 @@ namespace BlogAPI
         public Connect()
         {
             Host = "localhost";
-            Database = "user";
+            Database = "blog";
             User = "root";
             Password = "";
             ConnectionString = "SERVER=" + Host + ";DATABASE=" + Database + ";UID=" + User + ";PASSWORD=" + Password + ";SslMode=None";
