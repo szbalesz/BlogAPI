@@ -77,5 +77,23 @@ namespace BlogAPI.Controllers
             };
             return result;
         }
+        [HttpPut]
+        public User Put(Guid Id, string title, string description)
+        {
+            conn.Connection.Open();
+            DateTime CreatedTime = DateTime.Now;
+            string sql = $"UPDATE `user` SET `Title`='{title}', `Description` = '{description}' WHERE `Id` = '{Id}'";
+            MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
+            cmd.ExecuteNonQuery();
+            conn.Connection.Close();
+            var result = new User
+            {
+                Id = Id,
+                Title = title,
+                Description = description,
+                LastUpdated = DateTime.Now
+            };
+            return result;
+        }
     }
 }
