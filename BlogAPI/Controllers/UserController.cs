@@ -36,5 +36,26 @@ namespace BlogAPI.Controllers
             conn.Connection.Close();
             return users;
         }
+        [HttpGet("Id")]
+        public User GetId(Guid Id)
+        {
+            conn.Connection.Open();
+            string sql = $"SELECT * FROM user WHERE Id='{Id}'";
+            MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            reader.Read();
+
+            var result = new User
+            {
+                Id = reader.GetGuid(0),
+                Title = reader.GetString(1),
+                Description = reader.GetString(2),
+                CreatedTime = reader.GetDateTime(3),
+                LastUpdated = reader.GetDateTime(4)
+            };
+            conn.Connection.Close();
+            return result;
+        }
     }
 }
